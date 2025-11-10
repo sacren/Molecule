@@ -1,8 +1,35 @@
 <script setup lang="ts">
     import { Link as InertiaLink } from '@inertiajs/vue3';
+    import type { PropType } from 'vue';
+
+    interface User {
+        name: string;
+    }
+
+    interface Post {
+        id: number;
+        title: string;
+        content: string;
+        created_at: string;
+        user: User;
+    }
+
+    interface PaginationLink {
+        url: string | null;
+        label: string;
+        active: boolean;
+    }
+
+    interface PaginatedPosts {
+        data: Post[];
+        links: PaginationLink[];
+    }
 
     defineProps({
-        posts: Object,
+        posts: {
+            type: Object as PropType<PaginatedPosts>,
+            required: true,
+        },
     });
 </script>
 
