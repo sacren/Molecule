@@ -40,6 +40,11 @@
     <div class="p-6 max-w-4xl mx-auto space-y-8">
         <h1 class="text-2xl font-bold mb-6">All Posts</h1>
 
+        <!-- Empty state when no posts exist -->
+        <div v-if="!posts.data.length" class="text-center py-8 text-gray-500">
+            No posts found.
+        </div>
+
         <div v-for="post in posts.data" :key="post.id" class="space-y-6">
             <article class="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
                 <header class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6">
