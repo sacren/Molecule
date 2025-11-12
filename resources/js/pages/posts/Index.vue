@@ -72,9 +72,10 @@
                         :href="link.url"
                         :aria-label="`Go to page ${link.label}`"
                         v-html="link.label"
-                        class="px-3 py-1 text-sm border rounded transition"
-                        :class="{ 'bg-blue-600 text-white border-blue-600': link.active,
-                                'text-blue-600 hover:bg-blue-50': !link.active, }">
+                        :class="[ 'px-3 py-1 text-sm border rounded transition',
+                                link.active
+                                ? 'bg-blue-600 text-white border-blue-600'
+                                : 'text-blue-600 hover:bg-blue-50', ]">
                 </InertiaLink>
                 <span v-else v-html="link.label" :aria-label="`Page ${link.label}`"
                              class="px-3 py-1 text-sm text-gray-400" />
