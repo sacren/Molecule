@@ -65,18 +65,20 @@
         </div>
 
         <!-- Pagination -->
-        <div v-if="posts.links.length > 3" class="flex justify-center mt-12 space-x-2">
+        <nav v-if="posts.links.length > 3" class="flex justify-center mt-12 space-x-2" aria-label="Pagination">
             <template v-for="(link, index) in posts.links" :key="index">
                 <InertiaLink
                         v-if="link.url"
                         :href="link.url"
+                        :aria-label="`Go to page ${link.label}`"
                         v-html="link.label"
                         class="px-3 py-1 text-sm border rounded transition"
                         :class="{ 'bg-blue-600 text-white border-blue-600': link.active,
                                 'text-blue-600 hover:bg-blue-50': !link.active, }">
                 </InertiaLink>
-                <span v-else v-html="link.label" class="px-3 py-1 text-sm text-gray-400" />
+                <span v-else v-html="link.label" :aria-label="`Page ${link.label}`"
+                             class="px-3 py-1 text-sm text-gray-400" />
             </template>
-        </div>
+        </nav>
     </div>
 </template>
