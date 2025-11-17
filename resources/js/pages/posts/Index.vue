@@ -26,12 +26,11 @@
         links: PaginationLink[];
     }
 
-    defineProps({
-        posts: {
-            type: Object as PropType<PaginatedPosts>,
-            required: true,
-        },
-    });
+    interface PostsType {
+        posts: PaginatedPosts;
+    }
+
+    defineProps<PostsType>();
 
     const { formatDate } = useDateFormatter();
 </script>
