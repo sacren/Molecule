@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { Link as InertiaLink } from '@inertiajs/vue3';
+    import { Head, Link as InertiaLink } from '@inertiajs/vue3';
     import type { PropType } from 'vue';
     import { useDateFormatter } from '@/composables/useDateFormatter';
     import AppLayout from '@/layouts/AppLayout.vue';
@@ -45,6 +45,7 @@
 </script>
 
 <template>
+    <Head title="Posts" />
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-6 max-w-4xl mx-auto space-y-8">
             <h1 class="text-2xl font-bold mb-6">All Posts</h1>
