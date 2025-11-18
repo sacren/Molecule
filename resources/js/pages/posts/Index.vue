@@ -47,7 +47,7 @@
 <template>
     <Head title="Posts" />
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="p-6 max-w-4xl mx-auto space-y-8">
+        <div class="p4 sm:p-6 max-w-4xl mx-auto space-y-8">
             <h1 class="text-2xl font-bold mb-6">All Posts</h1>
 
             <!-- Empty state when no posts exist -->
