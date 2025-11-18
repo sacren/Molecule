@@ -2,11 +2,7 @@
     import { Head, Link as InertiaLink } from '@inertiajs/vue3';
     import { useDateFormatter } from '@/composables/useDateFormatter';
     import AppLayout from '@/layouts/AppLayout.vue';
-    import type { BreadcrumbItem } from '@/types';
-
-    interface User {
-        name: string;
-    }
+    import type { BreadcrumbItem, User } from '@/types';
 
     interface Post {
         id: number;
