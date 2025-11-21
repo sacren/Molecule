@@ -1,5 +1,6 @@
 <script setup lang="ts">
-    import { Head, Link as InertiaLink } from '@inertiajs/vue3';
+    import { Head, Link as InertiaLink, router } from '@inertiajs/vue3';
+    import { reactive } from 'vue';
     import { useDateFormatter } from '@/composables/useDateFormatter';
     import AppLayout from '@/layouts/AppLayout.vue';
     import type { BreadcrumbItem, User } from '@/types';
@@ -31,6 +32,25 @@
 
     const { formatDate } = useDateFormatter();
 
+    // Make form data reactive
+    const form = reactive({
+        title: '',
+        content: '',
+    });
+
+    const handleSubmit = () => {
+        router.post('/posts', form, {
+            preserveScroll: true,
+            onSuccess: () => {
+                form.title = '';
+                form.content = '';
+            },
+            onError: (errors) => {
+                console.log(errors);
+            },
+        });
+    };
+
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: 'Posts',
@@ -42,8 +62,58 @@
 <template>
     <Head title="Posts" />
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="p4 sm:p-6 max-w-4xl mx-auto space-y-8">
+        <div class="p-4 sm:p-6 max-w-4xl mx-auto space-y-8">
             <h1 class="text-2xl font-bold mb-6">All Posts</h1>
+
+            <!-- Create new post form -->
+            <section class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <h2 class="text-xl font-semibold mb-4">Write a new post</h2>
+                <form @submit.prevent="handleSubmit" class="space-y-4">
+                    <!-- Title -->
+                    <div>
+                        <label for="title" class="block text-sm font-medium text-gray-700 mb-1">
+                            Title
+                        </label>
+                        <input type="text"
+                            id="title"
+                            v-model="form.title"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md
+                                    focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter post title">
+                        <div v-if="$page.props.errors.title" class="text-red-600 text-sm mt-1">
+                            {{ $page.props.errors.title }}
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div>
+                        <label for="content" class="block text-sm font-medium text-gray-700 mb-1">
+                            Content
+                        </label>
+                        <textarea
+                            id="content"
+                            v-model="form.content"
+                            rows="3"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md
+                                    focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter post content">
+                        </textarea>
+                        <div v-if="$page.props.errors.content" class="text-red-600 text-sm mt-1">
+                            {{ $page.props.errors.content }}
+                        </div>
+                    </div>
+
+                    <!-- Submit button -->
+                    <div>
+                        <button type="submit"
+                            class="px-6 py-2 bg-blue-600 text-white font-medium rounded-md
+                                    hover:bg-blue-700 disabled:opacity-50
+                                    disabled:cursor-not-allowed transition">
+                            Create Post
+                        </button>
+                    </div>
+                </form>
+            </section>
 
             <!-- Empty state when no posts exist -->
             <div v-if="!posts.data.length" class="text-center py-8 text-gray-500">
