@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -38,7 +40,9 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        auth()->user()->posts()->create($request->validated());
+        $user = Auth::user();
+        assert($user instanceof User);
+        $user->posts()->create($request->validated());
 
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
