@@ -14,10 +14,15 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, FileText } from 'lucide-vue-next';
+import { Globe, Folder, LayoutGrid, FileText } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
+    {
+        title: 'Welcome',
+        href: 'posts',
+        icon: Globe,
+    },
     {
         title: 'Dashboard',
         href: dashboard(),
