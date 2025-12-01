@@ -69,22 +69,6 @@
             <section class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
                 <h2 class="text-xl font-semibold mb-4">Write a new post</h2>
                 <form @submit.prevent="handleSubmit" class="space-y-4">
-                    <!-- Title -->
-                    <div>
-                        <label for="title" class="block text-sm font-medium text-gray-700 mb-1">
-                            Title
-                        </label>
-                        <input type="text"
-                            id="title"
-                            v-model="form.title"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-md
-                                    focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Enter post title">
-                        <div v-if="$page.props.errors.title" class="text-red-600 text-sm mt-1">
-                            {{ $page.props.errors.title }}
-                        </div>
-                    </div>
-
                     <!-- Content -->
                     <div>
                         <label for="content" class="block text-sm font-medium text-gray-700 mb-1">
