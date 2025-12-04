@@ -82,7 +82,9 @@
                                     focus:ring-blue-500 focus:border-blue-500"
                             placeholder="What's on your mind?">
                         </textarea>
-                        <div v-if="$page.props.errors.content" class="text-red-600 text-sm mt-1">
+                        <div v-if="$page.props.errors.content"
+                             class="text-red-600 text-sm mt-1"
+                             role="alert">
                             {{ $page.props.errors.content }}
                         </div>
                     </div>
