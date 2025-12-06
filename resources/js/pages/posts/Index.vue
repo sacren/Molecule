@@ -1,6 +1,6 @@
 <script setup lang="ts">
-    import { Head, Link as InertiaLink, router } from '@inertiajs/vue3';
-    import { reactive } from 'vue';
+    import { Head, Link as InertiaLink, router, usePage } from '@inertiajs/vue3';
+    import { reactive, computed } from 'vue';
     import { useDateFormatter } from '@/composables/useDateFormatter';
     import AppLayout from '@/layouts/AppLayout.vue';
     import type { BreadcrumbItem, User } from '@/types';
@@ -57,6 +57,9 @@
             href: '/posts',
         },
     ];
+
+    const page = usePage()
+    const flashSuccess = computed(() => page.props.flash?.success)
 </script>
 
 <template>
@@ -64,6 +67,11 @@
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4 sm:p-6 max-w-4xl mx-auto space-y-8">
             <h1 class="text-2xl font-bold mb-6">All Posts</h1>
+
+            <!-- Flash success message -->
+            <div v-if="flashSuccess" class="text-center font-medium text-green-600 text-sm" role="alert">
+                {{ flashSuccess }}
+            </div>
 
             <!-- Create new post form -->
             <section class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
