@@ -1,65 +1,65 @@
 <script setup lang="ts">
-    import { Head, Link as InertiaLink, router, usePage } from '@inertiajs/vue3';
-    import { reactive, computed } from 'vue';
-    import { useDateFormatter } from '@/composables/useDateFormatter';
-    import AppLayout from '@/layouts/AppLayout.vue';
-    import type { BreadcrumbItem, User } from '@/types';
+import { Head, Link as InertiaLink, router, usePage } from '@inertiajs/vue3';
+import { reactive, computed } from 'vue';
+import { useDateFormatter } from '@/composables/useDateFormatter';
+import AppLayout from '@/layouts/AppLayout.vue';
+import type { BreadcrumbItem, User } from '@/types';
 
-    interface Post {
-        id: number;
-        title: string;
-        content: string;
-        created_at: string;
-        user: User;
-    }
+interface Post {
+    id: number;
+    title: string;
+    content: string;
+    created_at: string;
+    user: User;
+}
 
-    interface PaginationLink {
-        url: string | null;
-        label: string;
-        active: boolean;
-    }
+interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
 
-    interface PaginatedPosts {
-        data: Post[];
-        links: PaginationLink[];
-    }
+interface PaginatedPosts {
+    data: Post[];
+    links: PaginationLink[];
+}
 
-    interface PostsType {
-        posts: PaginatedPosts;
-    }
+interface PostsType {
+    posts: PaginatedPosts;
+}
 
-    defineProps<PostsType>();
+defineProps<PostsType>();
 
-    const { formatDate } = useDateFormatter();
+const { formatDate } = useDateFormatter();
 
-    // Make form data reactive
-    const form = reactive({
-        title: '',
-        content: '',
-    });
+// Make form data reactive
+const form = reactive({
+    title: '',
+    content: '',
+});
 
-    const handleSubmit = () => {
-        router.post('/posts', form, {
-            preserveScroll: true,
-            onSuccess: () => {
-                form.title = '';
-                form.content = '';
-            },
-            onError: (errors) => {
-                console.log(errors);
-            },
-        });
-    };
-
-    const breadcrumbs: BreadcrumbItem[] = [
-        {
-            title: 'Posts',
-            href: '/posts',
+const handleSubmit = () => {
+    router.post('/posts', form, {
+        preserveScroll: true,
+        onSuccess: () => {
+            form.title = '';
+            form.content = '';
         },
-    ];
+        onError: (errors) => {
+            console.log(errors);
+        },
+    });
+};
 
-    const page = usePage()
-    const flashSuccess = computed(() => page.props.flash?.success)
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Posts',
+        href: '/posts',
+    },
+];
+
+const page = usePage()
+const flashSuccess = computed(() => page.props.flash?.success)
 </script>
 
 <template>
