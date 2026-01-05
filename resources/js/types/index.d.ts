@@ -1,6 +1,13 @@
 import { InertiaLinkProps } from '@inertiajs/vue3';
 import type { LucideIcon } from 'lucide-vue-next';
 
+export interface FlashMessages {
+    success: string | null;
+    error: string | null;
+    warning: string | null;
+    info: string | null;
+}
+
 export interface Auth {
     user: User;
 }
@@ -37,3 +44,13 @@ export interface User {
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
+
+declare module '@inertiajs/core' {
+    interface PageProps {
+        auth: Auth;
+        flash: FlashMessages;
+        name: string;
+        quote: { message: string; author: string };
+        sidebarOpen: boolean;
+    }
+}
